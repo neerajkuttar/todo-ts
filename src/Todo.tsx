@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BiSquareRounded } from "react-icons/bi";
 
 type Todo = {
   id: number;
@@ -18,12 +17,12 @@ const Todo: React.FC = () => {
   const [newTodo, setNewTodo] = useState<string>("");
   const [tbutton, setTbutton] = useState(false);
  
-  const todos1 = todos.filter(checkfalse)
+  const checkedTodo = todos.filter(checkfalse)
   function checkfalse(todos: { checked: boolean; }){
     return todos.checked == false
   }
 
-  const todos2 = todos.filter(checktrue)
+  const uncheckedTodo = todos.filter(checktrue)
   function checktrue(todos: { checked: boolean; }){
     return todos.checked == true
   }
@@ -63,24 +62,17 @@ const Todo: React.FC = () => {
         Refresh
       </button>
       <h2 className="text-xl "> Things to do </h2>
-      {todos1.length==0 && <div>No todos here</div> }
+      {checkedTodo.length==0 && <div>No todos here</div> }
 
       <ul className="">
-        {todos1.map((todo) => (
+        {checkedTodo.map((todo) => (
 
         <li
           className=" text-md"
           key={todo.id}
           onClick={() => handleTodoToggle(todo.id)}
         >
-          <div className=" flex items-center">
-
-            <div>
-
-              <BiSquareRounded />
-            </div>
-            <div> {todo.text} </div>
-          </div>
+            <div> <input type="checkbox" /> {todo.text} </div>
         </li>
          
         ))}
@@ -122,25 +114,19 @@ const Todo: React.FC = () => {
       )}
 
 <h2 className="text-xl "> Things done </h2>
-{todos2.length==0 && <div>No todos here</div> }
+{uncheckedTodo.length==0 && <div>No todos here</div> }
 
 <ul className="">
   
-  {todos2.map((todo) => (
+  {uncheckedTodo.map((todo) => (
 
   <li
     className=" text-md"
     key={todo.id}
     onClick={() => handleTodoToggle(todo.id)}
   >
-    <div className=" flex items-center">
+      <div> <input type="checkbox"  checked  className=" accent-yellow-500" /> {todo.text} </div>
 
-      <div>
-
-        <BiSquareRounded />
-      </div>
-      <div> {todo.text} </div>
-    </div>
   </li>
    
   ))}
